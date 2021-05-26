@@ -3,7 +3,7 @@ import datetime
 from flask_login import UserMixin
 
 
-DATABASE = SqliteDatabase('dogs.sqlite')
+DATABASE = SqliteDatabase('recipes.sqlite')
 
 
 class User(UserMixin, Model):
@@ -20,24 +20,30 @@ class Recipe(Model):
     created_date = DateTimeField(default=datetime.datetime.now)
     recipe_name = CharField()
     steps = TextField()
-    likes = IntegerField()
+    likes = IntegerField(default=0)
     comments = TextField()
 
     class Meta:
         database = DATABASE
 
+# MAke another model for user comments
+# Make a model for favorite recipes
+
+# Set up front end with react router basic nav bar for recipe routes
+#think about layout and redo the wireframe
+
+
 # class Favorites(Model):
 #     favorite_section = ForeignKeyField(User, backref='favorite_recipe')
 #     favorite = #the recipe model
-#
 
 
-    class Meta:
-        database = DATABASE
+
+
 
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User], safe=True)
+    DATABASE.create_tables([User, Recipe], safe=True)
     print("TABLES Created")
     DATABASE.close()

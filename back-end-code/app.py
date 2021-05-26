@@ -15,12 +15,16 @@ from dotenv import load_dotenv
 from flask_login import LoginManager
 
 from resources.users import users
+from resources.recipes import recipes
 
 load_dotenv()
 
 app = Flask(__name__) # instantiating the Flask class to create an app
 
+
 app.secret_key = os.environ.get("FLASK_APP_SECRET")
+
+from resources.users import users
 
 login_manager = LoginManager()
 
@@ -32,8 +36,11 @@ def load_user(user_id):
 
 
 CORS(users, origins=['http://localhost:3000'], supports_credentials=True) #for the users blueprint
+CORS(recipes, origins=['http://localhost:3000'], supports_credentials=True)
+
 
 app.register_blueprint(users, url_prefix='/api/v1/users') #register blueprint
+app.register_blueprint(recipes, url_prefix='/api/v1/recipes') #register blueprint
 
 
 
