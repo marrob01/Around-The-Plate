@@ -1,10 +1,12 @@
 from peewee import *
 import datetime
 from flask_login import UserMixin
+import os
+from playhouse.db_url import connect
 
 
-DATABASE = SqliteDatabase('recipes.sqlite')
-
+# DATABASE = SqliteDatabase('recipes.sqlite')
+DATABASE = connect(os.environ.get('DATABASE_URL') or 'sqlite:///recipes.sqlite')
 
 class User(UserMixin, Model):
     username = CharField(unique=True)
