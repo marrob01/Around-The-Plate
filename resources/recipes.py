@@ -55,10 +55,6 @@ def all_recipes_index():
     }), 200
 
 
-
-
- # READ THIS: http://docs.peewee-orm.com/en/latest/peewee/querying.html#selecting-multiple-records
-
 @recipes.route('/', methods=['POST'])
 def create_recipe():
     # .get_json() attached to request will extract JSON from the request body
@@ -82,15 +78,19 @@ def create_recipe():
 @recipes.route('/<id>/like', methods=['POST'])
 def add_like(id):
 
-    recipe_object = model_to_dict(models.Recipe.get_by_id(id))
-    recipe_add = recipe_object['likes'] + 1
-    print(recipe_add)
-    return recipe_object
-    # query = (recipe_object
-    #  .update({recipe_object['likes']})
-    #  )
-    # query.execute()  # Execute the query, returning number of rows updated.
-#
+    recipeToLike =  model_to_dict(models.Recipe.get_by_id(id))
+    recipeToLikeO =  models.Recipe.get_by_id(id)
+
+    print(recipeToLike)
+    query = models.Recipe.update(likes=(models.Recipe.likes + 1)).where(models.Recipe.id ==id)
+
+    query.execute() # Execute the query, returning number of rows updated.
+    return jsonify(
+
+        status= 200,
+        message="Success on the like"
+    ), 200
+
 
 @recipes.route('/<id>', methods=["GET"])
 def get_one_recipe(id):
@@ -105,9 +105,7 @@ def get_one_recipe(id):
 @recipes.route('/<id>', methods=["PUT"])
 def update_recipe(id):
     payload = request.get_json()
-    query = models.Recipe.update(**payload).where(models.Recipe.id==id)
-
-    query.execute()
+    models.Recipe.update(**payload).where(models.Recipe.id==id).execute()
     return jsonify(
         data=model_to_dict(models.Recipe.get_by_id(id)),
         status=200,

@@ -18,6 +18,7 @@ def test_user_resource():
 
 @users.route('/register', methods=['POST'])
 def register():
+    print('hitting the register route')
     payload = request.get_json()
 
     # since emails are case insensitive in the world
@@ -29,7 +30,6 @@ def register():
     # see if the user exists
     try:
         models.User.get(models.User.email == payload['email'])
-        models.User.get(models.User.username == payload['username'])
 
         return jsonify(
             data={},
@@ -43,7 +43,9 @@ def register():
         payload['password'] = generate_password_hash(payload['password'])
 
         created_user = models.User.create(
-            **payload
+            username=payload['username'],
+            email=payload['email'],
+            password= payload['password']
         )
 
         print(created_user)
@@ -68,12 +70,11 @@ def register():
 @users.route('/login', methods=['POST'])
 def login():
     payload = request.get_json()
-    payload['email'] = payload['email'].lower()
     payload['username'] = payload['username'].lower()
 
     # look up the user by email
     try:
-        user = models.User.get(models.User.email == payload['email'])
+        user = models.User.get(models.User.username == payload['username'])
 
     # if we got here, we know a user with this email exists
         user_dict = model_to_dict(user)
@@ -97,7 +98,7 @@ def login():
             print('pw is no good')
             return jsonify(
                 data={},
-                message="Email or password is incorrect", # let's be vague
+                message="username or password is incorrect", # let's be vague
                 status=401
             ), 401
             # respond -- bad username or password
@@ -107,7 +108,7 @@ def login():
         # respond -- bad username or password
         return jsonify(
             data={},
-            message="Email or password is incorrect", # let's be vague
+            message="username or password is incorrect",
             status=401
         ), 401
 
