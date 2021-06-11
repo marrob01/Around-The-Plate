@@ -35,8 +35,8 @@ def load_user(user_id):
     return  models.User.get(models.User.id == user_id)
 
 
-CORS(users, origins=['http://localhost:3000', 'https://around-the-plate.herokuapp.com'], supports_credentials=True) #for the users blueprint
-CORS(recipes, origins=['http://localhost:3000', 'https://around-the-plate.herokuapp.com'], supports_credentials=True)
+CORS(users, origins=['http://localhost:3000', 'https://around-the-plate-frontend.herokuapp.com'], supports_credentials=True) #for the users blueprint
+CORS(recipes, origins=['http://localhost:3000', 'https://around-the-plate.herokuapp-frontend.com'], supports_credentials=True)
 
 
 app.register_blueprint(users, url_prefix='/api/v1/users') #register blueprint
