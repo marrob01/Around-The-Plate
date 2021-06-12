@@ -57,20 +57,22 @@ def all_recipes_index():
 
 @recipes.route('/', methods=['POST'])
 def create_recipe():
-    # .get_json() attached to request will extract JSON from the request body
+    print("Create recipe route hittt")
+    print(request)
     pay = request.get_json() # this is like req.body in express
     print(current_user)
     print("-------------")
 
      # you should see request body in your terminal :)
-    new_recipe = models.Recipe.create(recipe_name=pay['recipe_name'],steps=pay['steps'], likes=pay['likes'], comments=pay['comments'])
+    new_recipe = models.Recipe.create( name=current_user.id,  recipe_name=pay['recipe_name'],steps=pay['steps'], likes=pay['likes'], comments=pay['comments'])
     print(new_recipe)
+
 
     recipe_dict = model_to_dict(new_recipe)
 
     return jsonify(
         data=recipe_dict,
-        message='Successfully created dog!',
+        message='Successfully created recipe!',
         status=201
     ), 201
 

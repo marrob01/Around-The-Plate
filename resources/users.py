@@ -25,6 +25,8 @@ def register():
     payload['email'] = payload['email'].lower()
     # might as well do the same with the username
     payload['username'] = payload['username'].lower()
+    print("here is the payoad")
+    print("----------------------------------")
     print(payload)
 
     # see if the user exists
