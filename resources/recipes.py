@@ -63,7 +63,7 @@ def create_recipe():
     print("-------------")
 
      # you should see request body in your terminal :)
-    new_recipe = models.Recipe.create(name=current_user.id, recipe_name=pay['recipe_name'],steps=pay['steps'], likes=pay['likes'], comments=pay['comments'])
+    new_recipe = models.Recipe.create(name=pay['name'], recipe_name=pay['recipe_name'],steps=pay['steps'], likes=pay['likes'], comments=pay['comments'])
     print(new_recipe)
 
     recipe_dict = model_to_dict(new_recipe)
