@@ -100,7 +100,7 @@ def login():
             print('pw is no good')
             return jsonify(
                 data={},
-                message="username or password is incorrect", # let's be vague
+                message="username or password is incorrect for sure", # let's be vague
                 status=401
             ), 401
             # respond -- bad username or password

@@ -38,8 +38,8 @@ def load_user(user_id):
 app.register_blueprint(users, url_prefix='/api/v1/users') #register blueprint
 app.register_blueprint(recipes, url_prefix='/api/v1/recipes') #register blueprint
 
-origins = ['http://localhost:3000', 'https://around-the-plate-frontend.herokuapp.com']
-CORS(app, origins=origins, allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials"] ,supports_credentials=True)
+origins = ['http://localhost:3000', 'https://around-the-plate-frontend.herokuapp.com', 'https://around-the-plate.herokuapp.com']
+CORS(app, origins=origins, allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin: https://around-the-plate-frontend.herokuapp.com" ,"Access-Control-Allow-Methods: GET, POST, PUT, PATCH, POST, DELETE, OPTIONS", "Access-Control-Allow-Headers: Content-Type", "Access-Control-Max-Age: 86400"] ,supports_credentials=True)
 
 # CORS(users, origins=['http://localhost:3000', 'https://around-the-plate-frontend.herokuapp.com'], supports_credentials=True) #for the users blueprint
 # CORS(recipes, origins=['http://localhost:3000', 'https://around-the-plate-frontend.herokuapp.com'], supports_credentials=True)

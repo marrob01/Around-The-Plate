@@ -37,14 +37,3 @@ class Recipe(Model):
 # class Favorites(Model):
 #     favorite_section = ForeignKeyField(User, backref='favorite_recipe')
 #     favorite = #the recipe model
-
-
-
-
-
-
-def initialize():
-    DATABASE.connect()
-    DATABASE.create_tables([User, Recipe], safe=True)
-    print("TABLES Created")
-    DATABASE.close()
